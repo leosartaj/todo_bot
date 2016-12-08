@@ -7,22 +7,27 @@ class DBHelper:
         self.conn = sqlite3.connect(dbname)
 
     def setup(self):
-        stmt = "CREATE TABLE IF NOT EXISTS items (description text)"
+        stmt = "CREATE TABLE IF NOT EXISTS items (owner text, description text)"
+        itemidx = "CREATE INDEX IF NOT EXISTS itemIndex ON items (description ASC)"
+        ownidx = "CREATE INDEX IF NOT EXISTS ownIndex ON items (owner ASC)"
         self.conn.execute(stmt)
+        self.conn.execute(itemidx)
+        self.conn.execute(ownidx)
         self.conn.commit()
 
-    def add_item(self, item_text):
-        stmt = "INSERT INTO items (description) VALUES (?)"
-        args = (item_text, )
+    def add_item(self, owner, item_text):
+        stmt = "INSERT INTO items (owner, description) VALUES (?, ?)"
+        args = (owner, item_text)
         self.conn.execute(stmt, args)
         self.conn.commit()
 
-    def delete_item(self, item_text):
-        stmt = "DELETE FROM items WHERE description = (?)"
-        args = (item_text, )
+    def delete_item(self, owner, item_text):
+        stmt = "DELETE FROM items WHERE owner = (?) AND description = (?)"
+        args = (owner, item_text)
         self.conn.execute(stmt, args)
         self.conn.commit()
 
-    def get_items(self):
-        stmt = "SELECT description FROM items"
-        return [x[0] for x in self.conn.execute(stmt)]
+    def get_items(self, owner):
+        stmt = "SELECT description FROM items WHERE owner = (?)"
+        args = (owner,)
+        return [x[0] for x in self.conn.execute(stmt, args)]
