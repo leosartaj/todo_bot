@@ -1,7 +1,7 @@
 ## Telegram TODO Bot
 
-Very simple bot to add a todo list. Just run todobot.py to run.
-Bot lives with the username @todo\_123\_bot
+Very simple bot to add a todo list. Add a token and run todobot.py to run.
+Sample Bot lives with the username @todo\_123\_bot.
 
 Commands:
 
