@@ -5,5 +5,5 @@ Bot lives with the username @todo\_123\_bot
 
 Commands:
 
-/show - Shows the TODO List
-/done - Mark an item as finished (Deletes from the list).
+- /show - Shows the TODO List
+- /done - Mark an item as finished (Deletes from the list).
